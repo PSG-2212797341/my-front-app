@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* 确保根元素和body占满全屏 */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 隐藏页面滚动条 */
+}

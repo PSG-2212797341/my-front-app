@@ -1,0 +1,79 @@
+/* Ant Design Layout全屏样式 */
+.ant-layout {
+  height: 100%;
+}
+
+/* 内容区域滚动 */
+.ant-layout-content {
+  overflow: auto;
+}
+
+/* 菜单颜色自定义 */
+/* 选中状态颜色 */
+.ant-menu-item-selected {
+  color: #0054fe !important;
+  background-color: transparent !important;
+}
+
+/* 父菜单在子菜单选中时的样式 */
+.ant-menu-submenu-selected > .ant-menu-submenu-title {
+  color: #ffffff !important;
+  background-color: #0054fe !important;
+}
+
+/* 子菜单背景色设置 */
+.ant-menu-sub {
+  background-color: transparent !important; /* 子菜单容器背景色 */
+}
+
+/* 移除Header默认padding */
+.ant-layout-header {
+  padding: 0 1.875rem !important;
+}
+
+/* 隐藏Tabs组件底部分割线 */
+.ant-tabs-nav::before {
+  border-bottom: none !important;
+}
+
+.ant-tabs-nav-wrap {
+  border-bottom: none !important;
+}
+
+.ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+/* 表格整体背景色为白色 */
+.ant-table {
+  background-color: #ffffff !important;
+}
+
+/* 表头背景色为白色 */
+.ant-table-thead > tr > th {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0;
+  color: #9ba2ab !important; /* 表头字体颜色 */
+}
+
+/* 表头hover状态 */
+.ant-table-thead > tr > th:hover {
+  background-color: #fafafa !important;
+}
+
+/* 表格内容区域背景色 */
+.ant-table-tbody {
+  background-color: #ffffff !important;
+  color: #74798c !important; /* 其他字体颜色 */
+}
+
+/* 表格行背景色 */
+.ant-table-tbody > tr {
+  background-color: #ffffff !important;
+}
+
+/* 表格单元格 */
+.ant-table-tbody > tr > td {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #f0f0f0;
+}
