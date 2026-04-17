@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, Tabs, type TabsProps } from "antd";
 import type { StatCardData } from "./types/analytics";
 import { generateStatsData } from "@/mock/analytics";
 import StatCard from "./components/StatCard";
 import BarChart from "./components/BarChart";
+import { createTotalItem } from "@/api/index.api";
 
 type DataType = "sales" | "visits";
 type TimeRange = "days" | "weeks" | "months" | "years";
@@ -35,6 +36,23 @@ const Analytics = () => {
   const handleChange = (value: string) => {
     setTimeRange(value as TimeRange);
   };
+
+  const getData = async () => {
+    await createTotalItem({
+      name: "2",
+      total: 2,
+      describeName: "2",
+      dailyAve: 2,
+      dayOnDay: 2,
+      weakOnWeak: 2,
+    }).then(res => {
+      console.log(res);
+    });
+  };
+
+  useEffect(() => {
+    getData();
+  });
 
   return (
     <div>
