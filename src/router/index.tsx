@@ -12,7 +12,7 @@ const AppRoutes = () => {
       {/* 使用布局作为根路由 */}
       <Route path="/" element={<MyLayout />}>
         {/* 首页相关路由 */}
-        <Route path="analytics" element={<Analytics />} />
+        <Route index element={<Analytics />} />
 
         {/* 表单状态相关路由 */}
         <Route path="form">

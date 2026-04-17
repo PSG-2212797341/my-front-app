@@ -4,7 +4,7 @@ import type { NavigateFunction } from "react-router-dom";
 export const navigateByKey = (navigate: NavigateFunction, key: string) => {
   switch (key) {
     case "1-1":
-      navigate("/analytics");
+      navigate("/");
       break;
     case "2-1":
       navigate("/form/basic");
