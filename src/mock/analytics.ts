@@ -1,70 +1,4 @@
 import Mock from "mockjs";
-import type { StatCardData } from "@/pages/index/types/analytics";
-import goldSvg from "@/assets/svg/gold.svg";
-import pointerSvg from "@/assets/svg/pointer.svg";
-import onlineSvg from "@/assets/svg/online.svg";
-import messageSvg from "@/assets/svg/message.svg";
-
-// 生成统计卡片mock数据
-export const generateStatsData = (): StatCardData[] => {
-  const Random = Mock.Random;
-
-  // 保持原有的4个数据项
-  const titles = ["总销售额", "访问量", "支付笔数", "线上购物转化率"];
-  const icons = [goldSvg, pointerSvg, messageSvg, onlineSvg];
-  const iconAlts = ["金币", "指针", "消息", "在线"];
-  const iconBgColors = ["#6236FF", "#B620E0", "#4AB8FF", "#20E0A5"];
-  const subtitles = ["日均销售额", "日访问量", "转化率", "日均销售额"];
-  const subtitleUnits = ["￥", "", "%", "￥"];
-
-  return titles.map((title, index) => {
-    // 生成随机数值
-    const mainValue = Random.integer(50000, 200000);
-    const subtitleValue = Random.integer(50, 200);
-    const comparisonValue1 = Random.float(1, 20, 1, 1);
-    const comparisonValue2 = Random.float(1, 15, 1, 1);
-
-    // 格式化数值
-    const formattedMainValue = mainValue.toLocaleString();
-    let formattedSubtitleValue = subtitleValue.toString();
-
-    // 添加单位
-    if (subtitleUnits[index] === "￥") {
-      formattedSubtitleValue = `${subtitleUnits[index]}${subtitleValue}`;
-    } else if (subtitleUnits[index] === "%") {
-      formattedSubtitleValue = `${subtitleValue}${subtitleUnits[index]}`;
-    } else {
-      formattedSubtitleValue = subtitleValue.toString();
-    }
-
-    // 随机生成趋势（up或down）
-    const trend1: "up" | "down" = Random.pick(["up", "down"]);
-    const trend2: "up" | "down" = Random.pick(["up", "down"]);
-
-    return {
-      id: index + 1,
-      title,
-      value: formattedMainValue,
-      icon: icons[index],
-      iconAlt: iconAlts[index],
-      iconBgColor: iconBgColors[index],
-      subtitle: subtitles[index],
-      subtitleValue: formattedSubtitleValue,
-      comparisons: [
-        {
-          label: "周同比",
-          value: `${trend1 === "up" ? "+" : "-"}${comparisonValue1}%`,
-          trend: trend1,
-        },
-        {
-          label: "日同比",
-          value: `${trend2 === "up" ? "+" : "-"}${comparisonValue2}%`,
-          trend: trend2,
-        },
-      ],
-    };
-  });
-};
 
 // 生成柱形图mock数据
 export const generateBarChartData = (
@@ -214,6 +148,5 @@ export const generateBarChartData = (
 
 // 默认导出所有mock数据生成函数
 export default {
-  generateStatsData,
   generateBarChartData,
 };

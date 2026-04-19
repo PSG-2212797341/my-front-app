@@ -1,12 +1,19 @@
 import { Dropdown, type MenuProps } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import type { StatCardData } from "../types/analytics";
+import type { CreateTotalItem } from "@/api/types/index.api.type";
 
 interface StatCardProps {
-  data: StatCardData;
+  configItem: StatCardData;
+  data: CreateTotalItem;
 }
 
-const StatCard = ({ data }: StatCardProps) => {
+// 格式化数字，添加千位分隔符
+const formatNumberWithCommas = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+const StatCard = ({ data, configItem }: StatCardProps) => {
   const dropdownItems: MenuProps["items"] = [
     {
       key: "1",
@@ -26,7 +33,7 @@ const StatCard = ({ data }: StatCardProps) => {
     <div className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-shadow duration-300">
       {/* 卡片头部 */}
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-sm font-medium text-gray-600">{data.title}</h3>
+        <h3 className="text-sm font-medium text-gray-600">{data.name}</h3>
         <Dropdown menu={{ items: dropdownItems }} placement="bottomRight" trigger={["click"]}>
           <EllipsisOutlined className="text-gray-400 hover:text-gray-700 cursor-pointer text-lg" />
         </Dropdown>
@@ -37,11 +44,11 @@ const StatCard = ({ data }: StatCardProps) => {
         {/* 图标 */}
         <div
           className="w-12 h-12 rounded-xl flex items-center justify-center mr-4"
-          style={{ backgroundColor: data.iconBgColor }}
+          style={{ backgroundColor: configItem.iconBgColor }}
         >
           <img
-            src={data.icon}
-            alt={data.iconAlt}
+            src={configItem.icon}
+            alt={configItem.iconAlt}
             className="w-6 h-6"
             style={{ filter: "brightness(0) invert(1)" }}
           />
@@ -49,16 +56,19 @@ const StatCard = ({ data }: StatCardProps) => {
 
         {/* 数值 */}
         <div>
-          <div className="text-2xl font-bold text-gray-800">{data.value}</div>
+          <div className="text-2xl font-bold text-gray-800">
+            {formatNumberWithCommas(data.total)}
+          </div>
           <div className="text-xs text-gray-500 mt-1">
-            {data.subtitle}: <span className="font-medium">{data.subtitleValue}</span>
+            {configItem.subtitle}:{" "}
+            <span className="font-medium">{formatNumberWithCommas(data.dailyAve)}</span>
           </div>
         </div>
       </div>
 
       {/* 趋势比较 */}
       <div className="pt-4 border-t border-gray-100">
-        {data.comparisons.map((comparison, index) => (
+        {configItem.comparisons.map((comparison, index) => (
           <div key={index} className="flex justify-between items-center mb-2 last:mb-0">
             <span className="text-sm text-gray-500">{comparison.label}</span>
             <div className="flex items-center">
@@ -71,7 +81,7 @@ const StatCard = ({ data }: StatCardProps) => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  {comparison.value}
+                  {data.dayOnDay + "%"}
                 </span>
               ) : (
                 <span className="text-red-500 text-sm font-medium flex items-center">
@@ -82,7 +92,7 @@ const StatCard = ({ data }: StatCardProps) => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  {comparison.value}
+                  {data.weakOnWeak + "%"}
                 </span>
               )}
             </div>

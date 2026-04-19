@@ -18,6 +18,7 @@ const BarChart = ({ dataType, timeRange }: BarChartProps) => {
 
     // 生成mock数据（10w+条数据）
     const chartData = generateBarChartData(dataType, timeRange);
+    console.log(chartData);
 
     // 配置项
     const option: echarts.EChartsOption = {
