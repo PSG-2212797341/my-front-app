@@ -77,3 +77,90 @@
   background-color: #ffffff !important;
   border-bottom: 1px solid #f0f0f0;
 }
+
+@media (min-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* 移动端优化 */
+@media (max-width: 640px) {
+  /* 改善移动端触摸体验 */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    min-height: 44px; /* 最小触摸目标尺寸 */
+  }
+
+  /* 改善移动端滚动 */
+  .ant-layout-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 响应式表格优化 */
+@media (max-width: 768px) {
+  .ant-table {
+    font-size: 0.875rem;
+  }
+
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px !important;
+  }
+}
+
+/* 响应式表单优化 */
+.responsive-form .ant-form-item {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+  .responsive-form .ant-form-item {
+    margin-bottom: 12px;
+  }
+
+  .responsive-form .ant-form-item-label {
+    padding-bottom: 4px !important;
+  }
+}
+
+/* 响应式标签页优化 */
+.responsive-tabs .ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 640px) {
+  .responsive-tabs .ant-tabs-tab {
+    padding: 8px 12px !important;
+    font-size: 0.875rem;
+  }
+}
+
+/* 改善移动端侧边栏动画 */
+.ant-layout-sider {
+  transition: all 0.2s cubic-bezier(0.34, 0.69, 0.1, 1) !important;
+}
+
+/* 隐藏移动端不需要的元素 */
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+}
+
+/* 显示移动端需要的元素 */
+@media (min-width: 769px) {
+  .show-on-mobile {
+    display: none !important;
+  }
+}

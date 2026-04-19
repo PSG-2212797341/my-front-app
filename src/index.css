@@ -9,3 +9,8 @@ body,
   padding: 0;
   overflow: hidden; /* 隐藏页面滚动条 */
 }
+
+/* 响应式字体大小 */
+html {
+  font-size: 14px;
+}

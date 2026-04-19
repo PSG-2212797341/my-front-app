@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, message, Space } from "antd";
+import { Card, message } from "antd";
 import { DynamicForm } from "@/components/dynamic-form";
 import { projectFormConfig } from "./config/formConfig";
 import { createDynamicForm } from "@/api/form.api";
@@ -29,17 +29,26 @@ const BasicForm: React.FC = () => {
   };
 
   return (
-    <div>
-      <Space size="large" style={{ width: "100%" }}>
-        <Card title="创建表单">
+    <div className="px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <Card
+          title="创建表单"
+          className="w-full"
+          styles={{
+            body: {
+              padding: "16px 20px",
+            },
+          }}
+        >
           <DynamicForm
             {...projectFormConfig}
             onSubmit={handleSubmit}
             onValuesChange={handleValuesChange}
             onReset={handleReset}
+            className="responsive-form"
           />
         </Card>
-      </Space>
+      </div>
     </div>
   );
 };

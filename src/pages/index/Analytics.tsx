@@ -105,35 +105,48 @@ const Analytics = () => {
   }, []);
 
   return (
-    <div>
+    <div className="px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* 统计卡片网格 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 统计卡片网格 - 改进响应式 */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {initData?.data.map((stat, index) => (
             <StatCard key={stat.name} data={stat} configItem={totalItem[index]} />
           ))}
         </div>
-        <div className="mt-7.5 mb-7.5 bg-white rounded-xl h-17.5 flex justify-between items-center px-7.5">
-          <Tabs
-            defaultActiveKey="sales"
-            items={items}
-            onChange={onChange}
-            tabBarStyle={{ borderBottom: "none" }}
-          />
-          <Select
-            placeholder="分类依据"
-            defaultValue="weeks"
-            style={{ width: 120 }}
-            onChange={handleChange}
-            options={[
-              { value: "days", label: "日" },
-              { value: "weeks", label: "周" },
-              { value: "months", label: "月" },
-              { value: "years", label: "近10年" },
-            ]}
-          />
+
+        {/* 控制面板 - 改进响应式 */}
+        <div className="mt-6 md:mt-7.5 mb-6 md:mb-7.5 bg-white rounded-xl p-4 md:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="w-full sm:w-auto">
+            <Tabs
+              defaultActiveKey="sales"
+              items={items}
+              onChange={onChange}
+              tabBarStyle={{ borderBottom: "none" }}
+              size="small"
+              className="responsive-tabs"
+            />
+          </div>
+          <div className="w-full sm:w-auto">
+            <Select
+              placeholder="分类依据"
+              defaultValue="weeks"
+              style={{ width: "100%", maxWidth: "200px" }}
+              onChange={handleChange}
+              size="small"
+              options={[
+                { value: "days", label: "日" },
+                { value: "weeks", label: "周" },
+                { value: "months", label: "月" },
+                { value: "years", label: "近10年" },
+              ]}
+            />
+          </div>
         </div>
-        <BarChart dataType={dataType} timeRange={timeRange} />
+
+        {/* 图表区域 */}
+        <div className="bg-white rounded-xl p-4 md:p-6">
+          <BarChart dataType={dataType} timeRange={timeRange} />
+        </div>
       </div>
     </div>
   );

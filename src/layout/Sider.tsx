@@ -1,19 +1,18 @@
 import { useState } from "react";
-import { Layout, Menu, theme } from "antd";
+import { Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 import { navigateByKey } from "./utils/navigationLogic";
 import { generateMenuItems } from "./menuConfig";
 
-const { Sider } = Layout;
+interface MySiderProps {
+  collapsed?: boolean;
+  isMobile?: boolean;
+}
 
-function MySider() {
+function MySider({ collapsed = false, isMobile = false }: MySiderProps) {
   const [selectedKeys, setSelectedKeys] = useState(["1-1"]);
-  const [openKeys, setOpenKeys] = useState(["1"]);
+  const [openKeys, setOpenKeys] = useState(collapsed ? [] : ["1"]);
   const navigate = useNavigate();
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
 
   // 处理菜单选中事件
   const handleSelect = ({ key }: { key: string }) => {
@@ -42,10 +41,22 @@ function MySider() {
 
     // 根据菜单key导航到对应的路由
     navigateByKey(navigate, targetKey);
+
+    // 在移动端选择菜单后自动关闭侧边栏
+    if (isMobile) {
+      // 这里需要通知父组件关闭侧边栏
+      // 可以通过回调函数或Context实现，暂时先这样
+    }
   };
 
   // 处理菜单展开/收起事件 - 只允许打开一个菜单
   const handleOpenChange = (keys: string[]) => {
+    // 如果侧边栏是折叠状态，不允许展开菜单
+    if (collapsed) {
+      setOpenKeys([]);
+      return;
+    }
+
     // 只保留最新打开的菜单key
     const latestOpenKey = keys.find(key => openKeys.indexOf(key) === -1);
 
@@ -70,36 +81,27 @@ function MySider() {
   const menuItems = generateMenuItems(selectedKeys);
 
   return (
-    <Sider
-      style={{
-        background: colorBgContainer,
-        textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        height: "100%", // 改为100%继承父容器高度
-        overflowY: "hidden",
-        boxSizing: "content-box",
-      }}
-    >
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <div
         className="h-16 leading-16 border-b-gray-200 border-r-gray-200 border-b border-r box-content text-center"
         style={{ flexShrink: 0 }}
       >
-        用于存放LOGO
+        {!collapsed ? "用于存放LOGO" : "LOGO"}
       </div>
       <div style={{ flex: 1, overflow: "auto" }}>
         <Menu
           theme="light"
           mode="inline"
-          style={{ padding: "20px" }}
+          inlineCollapsed={collapsed}
+          style={{ padding: collapsed ? "12px" : "20px" }}
           selectedKeys={selectedKeys}
-          openKeys={openKeys}
+          openKeys={collapsed ? [] : openKeys}
           onSelect={handleSelect}
           onOpenChange={handleOpenChange}
           items={menuItems}
         />
       </div>
-    </Sider>
+    </div>
   );
 }
 
